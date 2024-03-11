@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Devis de Rénovation</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container mt-5">
+  <h2>Devis de Rénovation</h2>
+  <form>
+    <div class="form-group">
+      <label for="surface">Surface (m²) :</label>
+      <input type="number" class="form-control" id="surface" placeholder="Entrez la surface">
+    </div>
+    <div class="form-group">
+      <label for="prixMateriel">Prix du Matériel (€/m²) :</label>
+      <input type="number" class="form-control" id="prixMateriel" placeholder="Entrez le prix du matériel">
+    </div>
+    <div class="form-group">
+      <label for="typeMateriel">Type de Matériel :</label>
+      <select class="form-control" id="typeMateriel">
+        <option value="standard">Standard</option>
+        <option value="premium">Premium</option>
+        <option value="deluxe">Deluxe</option>
+      </select>
+    </div>
+    <button type="button" class="btn btn-primary" onclick="calculerDevis()">Calculer</button>
+  </form>
+  <div id="resultat" class="mt-3"></div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+  function calculerDevis() {
+    var surface = parseFloat(document.getElementById("surface").value);
+    var prixMateriel = parseFloat(document.getElementById("prixMateriel").value);
+    var typeMateriel = document.getElementById("typeMateriel").value;
+
+    var prixMainOeuvre = 30 * surface; // Coût de la main-d'œuvre par m²
+
+    var prixTotal;
+
+    if (typeMateriel === "standard") {
+      prixTotal = (surface * prixMateriel) + prixMainOeuvre;
+    } else if (typeMateriel === "premium") {
+      prixTotal = (surface * prixMateriel * 1.5) + prixMainOeuvre; // Exemple : 50% plus cher pour le matériel premium
+    } else if (typeMateriel === "deluxe") {
+      prixTotal = (surface * prixMateriel * 2) + prixMainOeuvre; // Exemple : le double pour le matériel deluxe
+    }
+
+    document.getElementById("resultat").innerHTML = "<h4>Devis Total : " + prixTotal.toFixed(2) + " €</h4>";
+  }
+</script>
+
+</body>
+</html>
